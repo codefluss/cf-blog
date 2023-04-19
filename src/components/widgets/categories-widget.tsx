@@ -2,6 +2,7 @@ import { getCategories } from '@/services/graph-cms';
 import { Category } from '@/interfaces/category';
 import Link from 'next/link';
 
+
 export default async function CategoriesWidget() {
   const categories = (await getCategories() || []);
 

@@ -6,15 +6,12 @@ export const metadata = {
   description: 'Friedrich Bachinger Dev Blog',
 }
 
-export default function RootLayout({
-                                     children,
-                                   }: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({children}: { children: React.ReactNode}) {
   return (
     <html lang="en">
       <body>
-        <Header />
+      {/* @ts-expect-error Server Component */}
+      <Header />
         <div className="z-10">
           {children}
         </div>

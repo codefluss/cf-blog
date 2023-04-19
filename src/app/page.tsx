@@ -18,6 +18,7 @@ export default async function Home() {
         <div className="lg:col-span-4 col-span-1">
           <div className="lg:sticky relative top-28">
             <PostWidget />
+            {/* @ts-expect-error Server Component */}
             <CategoriesWidget />
           </div>
         </div>
