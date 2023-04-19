@@ -1,19 +1,11 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import { getCategories } from '@/services/graph-cms';
 import { Category } from '@/interfaces/category';
 import Link from 'next/link';
 
 
-export default function Categories() {
-  const [categories, setCategories] = useState([]);
+export default async function Categories() {
+  const categories = await getCategories();
 
-  useEffect(() => {
-    getCategories()
-      .then(result => setCategories(result));
-  }, []);
-  
   return (
     <div className="bg-blue-200 shadow-lg rounded-lg p-8 mb-8">
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">
