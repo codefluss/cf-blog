@@ -1,8 +1,8 @@
 import { Post } from '@/interfaces/post';
-import PostCard from '@/components/post-card';
 import { getPosts } from '@/services/graph-cms';
 import PostWidget from '@/components/widgets/post-widget';
 import CategoriesWidget from '@/components/widgets/categories-widget';
+import PostCard from '@/components/post/post-card';
 
 
 export default async function Home() {
