@@ -15,7 +15,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        <div>
+        <div className="z-10">
           {children}
         </div>
       </body>

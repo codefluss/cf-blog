@@ -3,10 +3,10 @@ import { Category } from '@/interfaces/category';
 import { getCategories } from '@/services/graph-cms';
 
 export default async function Header() {
-  const categories = await getCategories();
+  const categories = await getCategories() || [];
 
   return (
-    <div className="container mx-auto px-10 mb-8">
+    <div className="container mx-auto px-10 mb-8 bg-white lg:sticky z-40 relative top-0">
       <div className="borderb w-full inline-block border-blue-400 py-8">
         <div className="md:float-left block">
           <Link href="/">

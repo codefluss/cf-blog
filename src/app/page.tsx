@@ -1,8 +1,8 @@
 import { Post } from '@/interfaces/post';
 import PostCard from '@/components/post-card';
-import PostWidget from '@/components/post-widget';
-import Categories from '@/components/categories';
 import { getPosts } from '@/services/graph-cms';
+import PostWidget from '@/components/widgets/post-widget';
+import CategoriesWidget from '@/components/widgets/categories-widget';
 
 
 export default async function Home() {
@@ -16,9 +16,9 @@ export default async function Home() {
           ))}
         </div>
         <div className="lg:col-span-4 col-span-1">
-          <div className="lg:sticky relative top-8">
-            <PostWidget/>
-            <Categories/>
+          <div className="lg:sticky relative top-28">
+            <PostWidget />
+            <CategoriesWidget />
           </div>
         </div>
       </div>

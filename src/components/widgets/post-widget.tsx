@@ -7,12 +7,12 @@ import { Post } from '@/interfaces/post';
 import moment from 'moment';
 import Link from 'next/link';
 
-export default function PostWidget({ categories, slug }: { categories: Category[], slug: string }) {
+export default function PostWidget({ categories, slug }: { categories?: Category[], slug?: string }) {
   const [relatedPosts, setRelatedPosts] = useState([]);
 
   useEffect(() => {
     if (slug) {
-      getSimilarPosts(categories, slug)
+      getSimilarPosts(categories || [], slug)
         .then(result => setRelatedPosts(result)); 
     } else {
       getRecentPosts()

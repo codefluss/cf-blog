@@ -2,9 +2,8 @@ import { getCategories } from '@/services/graph-cms';
 import { Category } from '@/interfaces/category';
 import Link from 'next/link';
 
-
-export default async function Categories() {
-  const categories = await getCategories();
+export default async function CategoriesWidget() {
+  const categories = (await getCategories() || []);
 
   return (
     <div className="bg-blue-200 shadow-lg rounded-lg p-8 mb-8">
