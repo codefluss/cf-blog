@@ -2,10 +2,12 @@ import { Post } from '@/interfaces/post';
 import PostCard from '@/components/post-card';
 import PostWidget from '@/components/post-widget';
 import Categories from '@/components/categories';
+import Header from '@/components/header';
 
 const posts: Post[] = [
-  { title: 'React Testing', excerpt: 'Learn React Testing' },
-  { title: 'React with Tailwind', excerpt: 'Learn React with Tailwind' },
+  { title: 'Next Js', excerpt: 'Learn Next JS' },
+  { title: 'Nest JS', excerpt: 'Learn Nest JS' },
+  { title: 'Angular', excerpt: 'Angular' },
 ]
 
 export default function Home() {

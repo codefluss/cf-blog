@@ -1,4 +1,5 @@
-import './globals.scss'
+import './globals.scss';
+import Header from '@/components/header';
 
 export const metadata = {
   title: 'Codefluss - Blog',
@@ -6,13 +7,18 @@ export const metadata = {
 }
 
 export default function RootLayout({
-  children,
-}: {
+                                     children,
+                                   }: {
   children: React.ReactNode
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Header />
+        <div>
+          {children}
+        </div>
+      </body>
     </html>
   )
 }
