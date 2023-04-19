@@ -2,27 +2,23 @@ import { Post } from '@/interfaces/post';
 import PostCard from '@/components/post-card';
 import PostWidget from '@/components/post-widget';
 import Categories from '@/components/categories';
-import Header from '@/components/header';
+import { getPosts } from '@/services/graph-cms';
 
-const posts: Post[] = [
-  { title: 'Next Js', excerpt: 'Learn Next JS' },
-  { title: 'Nest JS', excerpt: 'Learn Nest JS' },
-  { title: 'Angular', excerpt: 'Angular' },
-]
 
-export default function Home() {
+export default async function Home() {
+  const posts = (await getPosts() || []);
   return (
     <div className="container mx-auto px-10 mb-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-8 col-span-1">
-          {posts.map((post, index) => (
-            <PostCard key={index} post={post} />
+          {posts.map((post : { node: Post}) => (
+            <PostCard key={post.node.id} post={post.node}/>
           ))}
         </div>
         <div className="lg:col-span-4 col-span-1">
           <div className="lg:sticky relative top-8">
-            <PostWidget />
-            <Categories />
+            <PostWidget/>
+            <Categories/>
           </div>
         </div>
       </div>
