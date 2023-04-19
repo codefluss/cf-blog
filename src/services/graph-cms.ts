@@ -36,8 +36,14 @@ export async function getPosts(): Promise<any> {
             }
         }
     `;
-    
-    const result = await request(graphqlAPI, query);
-    // @ts-ignore
-    return result.postsConnection.edges;
+
+    try {
+        const client = new GraphQLClient(graphqlAPI);
+        const response = await client.request(query);
+        // @ts-ignore
+        return response.postsConnection.edges;
+    } catch (error) {
+        console.error(error);
+    }
+
 }
