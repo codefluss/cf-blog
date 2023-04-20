@@ -5,7 +5,7 @@ import CategoriesWidget from '@/components/widgets/categories-widget';
 import PostCommentsForm from '@/components/post/post-comments-form';
 import PostDetail from '@/components/post/post-detail';
 import PostAuthor from '@/components/post/post-author';
-import PostComment from '@/components/post/post-comment';
+import PostComments from '@/components/post/post-comments';
 
 export default async function Page({params}: {params: { slug: string}}) {
   const postDetail = await getPostDetail(params.slug);
@@ -16,7 +16,8 @@ export default async function Page({params}: {params: { slug: string}}) {
           <PostDetail postDetail={postDetail} />
           <PostAuthor author={postDetail.author} />
           <PostCommentsForm slug={postDetail.slug}/>
-          <PostComment slug={postDetail.slug}/>
+          {/* @ts-expect-error Server Component */}
+          <PostComments slug={postDetail.slug}/>
         </div>
         <div className="col-span-1 lg:col-span-4">
           <div className="relative lg:sticky top-28">
