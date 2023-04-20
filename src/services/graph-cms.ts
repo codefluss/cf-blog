@@ -1,137 +1,135 @@
-import { gql, GraphQLClient } from 'graphql-request';
+import { request, gql } from 'graphql-request';
 import { Category } from '@/interfaces/category';
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
-
-export async function getPosts(): Promise<any> {
-    return getEdgesResponse(getPostsQuery);
-}
-
-export async function getRecentPosts(): Promise<any> {
-    return getPostsResponse(getRecentPostsQuery);
-}
-
-export async function getSimilarPosts(categories: Category[], slug: string): Promise<any> {
-    return getPostsResponse(getSimilarPostsQuery);
-}
-
-export async function getCategories(): Promise<any> {
-    return getCategoriesResponse(getCategoriesQuery);
-}
-
-
-const getPostsQuery = gql`
-    query GetAllPosts {
-        postsConnection {
-            edges {
-                node {
-                    author {
-                        id
-                        name
-                        bio
-                        photo {
+export const getPosts = async () => {
+    if (!graphqlAPI) return;
+    const query = gql`
+        query GetPosts {
+            postsConnection {
+                edges {
+                    cursor
+                    node {
+                        author {
+                            bio
+                            name
+                            id
+                            photo {
+                                url
+                            }
+                        }
+                        createdAt
+                        slug
+                        title
+                        excerpt
+                        featuredImage {
                             url
                         }
-                    }
-                    createdAt
-                    slug
-                    title
-                    excerpt
-                    featuredImage {
-                        url
-                    }
-                    categories {
-                        name
-                        slug
-                    }
-                    tags {
-                        name
-                        slug
+                        categories {
+                            name
+                            slug
+                        }
                     }
                 }
             }
         }
-    }
-`;
+    `;
 
-const getRecentPostsQuery = gql`
-    query GetRecentPosts {
-        posts(
-            orderBy: createdAt_ASC
-            last: 3
-        ) {
-            title
-            featuredImage {
-                url
+    const result = await request(graphqlAPI, query);
+    // @ts-ignore
+    return result.postsConnection.edges;
+}
+
+export const getPostDetail = async (slug: string) => {
+    if (!graphqlAPI) return;
+    const query = gql`
+        query GetPostDetails($slug : String!) {
+            post(where: {slug: $slug}) {
+                title
+                excerpt
+                featuredImage {
+                    url
+                }
+                author{
+                    name
+                    bio
+                    photo {
+                        url
+                    }
+                }
+                createdAt
+                slug
+                content {
+                    raw
+                }
+                categories {
+                    name
+                    slug
+                }
             }
-            createdAt
-            slug
         }
-    }
-`;
+    `;
 
-const getSimilarPostsQuery = gql`
-    query getSimilarPosts($slug: String!, $categories: [String!]) {
-        posts(
-            where: { slug_not: $slug, AND: {categories_some: { slug_in: $categories}} }
-            last: 3
-        ) {
-            title
-            featuredImage {
-                url
+    const result = await request(graphqlAPI, query, { slug });
+    // @ts-ignore
+    return result.post;
+};
+
+export const getSimilarPosts = async (categories: Category[], slug: string) => {
+    if (!graphqlAPI) return;
+    const query = gql`
+        query GetSimilarPosts($slug: String!, $categories: [String!]) {
+            posts(
+                where: {slug_not: $slug, AND: {categories_some: {slug_in: $categories}}}
+                last: 3
+            ) {
+                title
+                featuredImage {
+                    url
+                }
+                createdAt
+                slug
             }
-            createdAt
-            slug
         }
-    }
-`;
+    `;
+    const result = await request(graphqlAPI, query, { slug, categories });
+    // @ts-ignore
+    return result.posts;
+};
 
-const getCategoriesQuery = gql`
-    query GetCategories {
-        categories {
-            name
-            slug
+export const getRecentPosts = async () => {
+    if (!graphqlAPI) return;
+    const query = gql`
+        query GetRecentPosts {
+            posts(
+                orderBy: createdAt_ASC
+                last: 3
+            ) {
+                title
+                featuredImage {
+                    url
+                }
+                createdAt
+                slug
+            }
         }
-    }
-`;
+    `;
+    const result = await request(graphqlAPI, query);
+    // @ts-ignore
+    return result.posts;
+};
 
-
-
-async function getEdgesResponse(query: string): Promise<any> {
+export const getCategories = async () => {
     if (!graphqlAPI) return;
-    try {
-        const client = new GraphQLClient(graphqlAPI);
-        const response = await client.request(query);
-        // @ts-ignore
-        return response.postsConnection.edges;
-    } catch (error) {
-        
-        console.error(error);
-    }
-}
-
-async function getPostsResponse(query: string): Promise<any> {
-    if (!graphqlAPI) return;
-    try {
-        const client = new GraphQLClient(graphqlAPI);
-        const response = await client.request(query);
-        // @ts-ignore
-        return response.posts;
-    } catch (error) {
-
-        console.error(error);
-    }
-}
-
-async function getCategoriesResponse(query: string): Promise<any> {
-    if (!graphqlAPI) return;
-    try {
-        const client = new GraphQLClient(graphqlAPI);
-        const response = await client.request(query);
-        // @ts-ignore
-        return response.categories;
-    } catch (error) {
-
-        console.error(error);
-    }
-}
+    const query = gql`
+        query GetGCategories {
+            categories {
+                name
+                slug
+            }
+        }
+    `;
+    const result = await request(graphqlAPI, query);
+    // @ts-ignore
+    return result.categories;
+};
