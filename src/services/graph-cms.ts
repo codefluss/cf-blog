@@ -130,6 +130,20 @@ export const getCategories = async () => {
     return result.categories;
 };
 
+export const getTags = async () => {
+    const query = gql`
+        query GetTags {
+            tags {
+                name
+                slug
+            }
+        }
+    `;
+    const result = await request(graphqlAPI!, query);
+    // @ts-ignore
+    return result.tags;
+};
+
 
 export const submitComment = async (commentDto: CommentDto) => {
     const query = gql`

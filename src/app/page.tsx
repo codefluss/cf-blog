@@ -3,6 +3,7 @@ import PostWidget from '@/components/widgets/post-widget';
 import CategoriesWidget from '@/components/widgets/categories-widget';
 import PostCard from '@/components/post/post-card';
 import { Post } from '@/shared/interfaces/post';
+import TagsWidget from '@/components/widgets/tags-widget';
 
 
 export default async function Home() {
@@ -20,6 +21,8 @@ export default async function Home() {
             <PostWidget />
             {/* @ts-expect-error Server Component */}
             <CategoriesWidget />
+            {/* @ts-expect-error Server Component */}
+            <TagsWidget />
           </div>
         </div>
       </div>
