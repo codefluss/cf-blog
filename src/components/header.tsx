@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { Category } from '@/interfaces/category';
 import { getCategories } from '@/services/graph-cms';
+import { Category } from '@/shared/interfaces/category';
 
 export default async function Header() {
   const categories = await getCategories() || [];
