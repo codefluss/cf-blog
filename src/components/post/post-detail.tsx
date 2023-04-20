@@ -1,6 +1,6 @@
-import { PostDetail } from '@/interfaces/post-detail';
 import moment from 'moment';
 import { Fragment } from 'react';
+import { PostDetail } from '@/shared/interfaces/post-detail';
 
 export default function PostDetail({postDetail}: {postDetail: PostDetail}) {
   const getContentFragment = (index: any, text: any, obj: any, type?: string) => {

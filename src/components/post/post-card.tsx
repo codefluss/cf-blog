@@ -1,6 +1,6 @@
-import { Post } from '@/interfaces/post';
 import Link from 'next/link';
 import moment from 'moment';
+import { Post } from '@/shared/interfaces/post';
 
 interface props { post: Post }
 

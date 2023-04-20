@@ -1,11 +1,12 @@
 'use client';
 
-import { Category } from '@/interfaces/category';
 import { useEffect, useState } from 'react';
 import { getRecentPosts, getSimilarPosts } from '@/services/graph-cms';
-import { Post } from '@/interfaces/post';
+import { Category } from '@/shared/interfaces/category';
+import { Post } from '@/shared/interfaces/post';
 import moment from 'moment';
 import Link from 'next/link';
+
 
 export default function PostWidget({ categories, slug }: { categories?: Category[], slug?: string }) {
   const [relatedPosts, setRelatedPosts] = useState([]);

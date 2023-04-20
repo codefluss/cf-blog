@@ -1,6 +1,6 @@
 import { getCategories } from '@/services/graph-cms';
-import { Category } from '@/interfaces/category';
 import Link from 'next/link';
+import { Category } from '@/shared/interfaces/category';
 
 
 export default async function CategoriesWidget() {

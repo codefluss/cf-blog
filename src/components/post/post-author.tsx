@@ -1,5 +1,5 @@
-import { Author } from '@/interfaces/author';
 import Image from 'next/image';
+import { Author } from '@/shared/interfaces/author';
 
 export default function PostAuthor({author}:{author: Author}) {
   return (

@@ -1,4 +1,4 @@
-import { Image } from '@/interfaces/image';
+import { Image } from '@/shared/interfaces/image';
 
 export interface Author{
   id: string;

@@ -1,5 +1,5 @@
 import { request, gql } from 'graphql-request';
-import { Category } from '@/interfaces/category';
+import { Category } from '@/shared/interfaces/category';
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 export const getPosts = async () => {
