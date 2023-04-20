@@ -1,9 +1,9 @@
 import { request, gql } from 'graphql-request';
 import { Category } from '@/shared/interfaces/category';
+import { CommentDto } from '@/shared/dtos/comment.dto';
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 export const getPosts = async () => {
-    if (!graphqlAPI) return;
     const query = gql`
         query GetPosts {
             postsConnection {
@@ -35,13 +35,12 @@ export const getPosts = async () => {
         }
     `;
 
-    const result = await request(graphqlAPI, query);
+    const result = await request(graphqlAPI!, query);
     // @ts-ignore
     return result.postsConnection.edges;
 }
 
 export const getPostDetail = async (slug: string) => {
-    if (!graphqlAPI) return;
     const query = gql`
         query GetPostDetails($slug : String!) {
             post(where: {slug: $slug}) {
@@ -70,13 +69,12 @@ export const getPostDetail = async (slug: string) => {
         }
     `;
 
-    const result = await request(graphqlAPI, query, { slug });
+    const result = await request(graphqlAPI!, query, { slug });
     // @ts-ignore
     return result.post;
 };
 
 export const getSimilarPosts = async (categories: Category[], slug: string) => {
-    if (!graphqlAPI) return;
     const query = gql`
         query GetSimilarPosts($slug: String!, $categories: [String!]) {
             posts(
@@ -92,13 +90,12 @@ export const getSimilarPosts = async (categories: Category[], slug: string) => {
             }
         }
     `;
-    const result = await request(graphqlAPI, query, { slug, categories });
+    const result = await request(graphqlAPI!, query, { slug, categories });
     // @ts-ignore
     return result.posts;
 };
 
 export const getRecentPosts = async () => {
-    if (!graphqlAPI) return;
     const query = gql`
         query GetRecentPosts {
             posts(
@@ -114,13 +111,12 @@ export const getRecentPosts = async () => {
             }
         }
     `;
-    const result = await request(graphqlAPI, query);
+    const result = await request(graphqlAPI!, query);
     // @ts-ignore
     return result.posts;
 };
 
 export const getCategories = async () => {
-    if (!graphqlAPI) return;
     const query = gql`
         query GetGCategories {
             categories {
@@ -129,7 +125,19 @@ export const getCategories = async () => {
             }
         }
     `;
-    const result = await request(graphqlAPI, query);
+    const result = await request(graphqlAPI!, query);
     // @ts-ignore
     return result.categories;
 };
+
+
+export const submitComment = async (commentDto: CommentDto) => {
+    const query = gql`
+        mutation CreateComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
+            createComment(data: {name: $name, email: $email, comment: $comment, post: {connect: {slug: $slug}}})
+            { id }
+        }
+    `;
+    const { name, email, slug, comment } = commentDto;
+    return request(graphqlAPI!, query, { name, email, slug, comment });
+}
