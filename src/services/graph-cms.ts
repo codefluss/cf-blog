@@ -74,7 +74,7 @@ export const getPostDetail = async (slug: string) => {
     return result.post;
 };
 
-export const getSimilarPosts = async (categories: Category[], slug: string) => {
+export const getSimilarPosts = async (categories: string[], slug: string) => {
     const query = gql`
         query GetSimilarPosts($slug: String!, $categories: [String!]) {
             posts(
@@ -191,21 +191,6 @@ export const getCategoryPosts = async (slug: string) => {
     // @ts-ignore
     return result.postsConnection.edges;
 };
-
-export const getTags = async () => {
-    const query = gql`
-        query GetTags {
-            tags {
-                name
-                slug
-            }
-        }
-    `;
-    const result = await request(graphqlAPI!, query);
-    // @ts-ignore
-    return result.tags;
-};
-
 
 export const submitComment = async (commentDto: CommentDto) => {
     const query = gql`

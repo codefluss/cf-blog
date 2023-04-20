@@ -1,9 +1,8 @@
 import { getPosts } from '@/services/graph-cms';
+import { Post } from '@/shared/interfaces/post';
 import PostWidget from '@/components/widgets/post-widget';
 import CategoriesWidget from '@/components/widgets/categories-widget';
 import PostCard from '@/components/post/post-card';
-import TagsWidget from '@/components/widgets/tags-widget';
-import { Post } from '@/shared/interfaces/post';
 import FeaturedPosts from '@/components/featured-post/featured-posts';
 
 
@@ -24,8 +23,6 @@ export default async function Home() {
             <PostWidget />
             {/* @ts-expect-error Server Component */}
             <CategoriesWidget />
-            {/* @ts-expect-error Server Component */}
-            <TagsWidget />
           </div>
         </div>
       </div>

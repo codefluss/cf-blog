@@ -8,7 +8,7 @@ import moment from 'moment';
 import Link from 'next/link';
 
 
-export default function PostWidget({ categories, slug }: { categories?: Category[], slug?: string }) {
+export default function PostWidget({ categories, slug }: { categories?: string[], slug?: string }) {
   const [relatedPosts, setRelatedPosts] = useState([]);
 
   useEffect(() => {

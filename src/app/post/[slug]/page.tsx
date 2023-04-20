@@ -6,7 +6,7 @@ import PostCommentsForm from '@/components/post/post-comments-form';
 import PostDetail from '@/components/post/post-detail';
 import PostAuthor from '@/components/post/post-author';
 import PostComments from '@/components/post/post-comments';
-import TagsWidget from '@/components/widgets/tags-widget';
+import { Category } from '@/shared/interfaces/category';
 
 export default async function Page({params}: {params: { slug: string}}) {
   const postDetail = await getPostDetail(params.slug);
@@ -22,12 +22,9 @@ export default async function Page({params}: {params: { slug: string}}) {
         </div>
         <div className="col-span-1 lg:col-span-4">
           <div className="relative lg:sticky top-28">
-            <PostWidget />
-            {/*<PostWidget slug={postDetail.slug} categories={postDetail.categories}/>*/}
+            <PostWidget slug={postDetail.slug} categories={postDetail.categories.map((category: Category) => category.slug)}/>
             {/* @ts-expect-error Server Component */}
             <CategoriesWidget />
-            {/* @ts-expect-error Server Component */}
-            <TagsWidget />
           </div>
         </div>
       </div>
